@@ -101,9 +101,9 @@ public class BookDao implements DataAccess{
             System.out.printf("Execute SQL Success...%n");
             // Check Execute Result
             if (result > 0) {
-                System.out.printf("Success Delete Data with isbn = '%s' to table book...%n", isbn);
+                System.out.printf("Success Delete Data with isbn = '%s' from table book...%n", isbn);
             } else {
-                System.out.printf("There is no data with isbn = '%s' Deleted to table book...%n", isbn);
+                System.out.printf("There is no data with isbn = '%s' Deleted from table book...%n", isbn);
             }
         } catch (SQLException e) {
             System.out.printf("Error in database execution...%n");

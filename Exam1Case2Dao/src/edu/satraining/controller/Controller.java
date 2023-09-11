@@ -190,10 +190,10 @@ public void readData() {
             int newPage = Integer.parseInt(scanner.nextLine());
             book.setPage(newPage);
     
-            // Display old data
-            System.out.printf("%nData Saat ini:%n");
-            System.out.println("=============");
-            displayBookInfo(book);
+            // // Display old data
+            // System.out.printf("%nData Saat ini:%n");
+            // System.out.println("=============");
+            // displayBookInfo(book);
     
             System.out.printf("%nData Terbaru:%n");
             System.out.println("=============");
@@ -242,13 +242,27 @@ public void readData() {
             System.out.printf("Anda yakin ingin menghapus buku dengan ISBN " + isbnToDelete + "? %n");
             System.out.printf("[Y] ya [N] tidak: ");
             String confirmation = scanner.nextLine();
-            
+    
+            while (!confirmation.equalsIgnoreCase("Y") && !confirmation.equalsIgnoreCase("N")) {
+                System.out.println("Masukkan 'Y' atau 'N': ");
+                confirmation = scanner.nextLine();
+            }
+    
             if (confirmation.equalsIgnoreCase("Y")) {
+                // Menghapus dari ArrayList
                 books.remove(bookIndex);
-                System.out.println("==========================================================");
-                System.out.printf("Buku dengan ISBN " + isbnToDelete + " telah dihapus.");
-                System.out.printf("%nTekan Enter untuk melanjutkan...");
-                scanner.nextLine();
+    
+                // Menghapus dari database
+                int deleteResult = repository.delete(isbnToDelete);
+    
+                if (deleteResult > 0) {
+                    System.out.println("==========================================================");
+                    System.out.printf("Buku dengan ISBN " + isbnToDelete + " telah dihapus.");
+                    System.out.printf("%nTekan Enter untuk melanjutkan...");
+                    scanner.nextLine();
+                } else {
+                    System.out.println("Penghapusan dari database gagal.");
+                }
             } else {
                 System.out.printf("Penghapusan buku dibatalkan.");
             }
@@ -256,6 +270,7 @@ public void readData() {
             System.out.printf("Buku dengan ISBN " + isbnToDelete + " tidak ditemukan.");
         }
     }
+    
     
     public static void main(String[] args) {
         Controller controller = new Controller();
