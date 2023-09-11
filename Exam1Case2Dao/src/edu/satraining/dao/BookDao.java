@@ -58,7 +58,7 @@ public class BookDao implements DataAccess{
         " where " + 
         " isbn = '"+book.getIsbn()+"';" ;
 
-        System.out.printf("%s%n", updateSql);
+        // System.out.printf("%s%n", updateSql);
         try {
             // Create Connection to Database
             con = DriverManager.getConnection(DB_URL, USER, PASS);

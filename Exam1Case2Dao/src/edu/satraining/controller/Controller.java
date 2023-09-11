@@ -169,53 +169,54 @@ public void readData() {
         System.out.printf("%nEdit Data Buku%n");
         System.out.printf("Masukkan ISBN buku yang ingin diubah: ");
         String isbnToEdit = scanner.nextLine();
-
-        int result = 0;
-        Book book = null;
-
-        book = repository.findById(isbnToEdit);
-        Book book1 = new Book();
-
-        if (result != -1) {
-            Book oldBook = books.get(result); // Menggunakan metode get() pada ArrayList
-            
+    
+        int result = -1; // Inisialisasi result dengan nilai default -1
+        Book book = repository.findById(isbnToEdit);
+    
+        if (book != null) {
             System.out.printf("Judul         : ");
             String newTitle = scanner.nextLine();
-            book1.setTitle(newTitle);
-
+            book.setTitle(newTitle);
+    
             System.out.printf("Penerbit      : ");
             String newPublisher = scanner.nextLine();
-            book1.setPublisher(newPublisher);
-
+            book.setPublisher(newPublisher);
+    
             System.out.printf("Harga         : ");
             float newPrice = Float.parseFloat(scanner.nextLine());
-            book1.setPrice(newPrice);
-
+            book.setPrice(newPrice);
+    
             System.out.printf("Jumlah Halaman: ");
             int newPage = Integer.parseInt(scanner.nextLine());
-            book1.setPage(newPage);
-            
+            book.setPage(newPage);
+    
             // Display old data
             System.out.printf("%nData Saat ini:%n");
             System.out.println("=============");
-            displayBookInfo(oldBook);
-
-            // Display new data
+            displayBookInfo(book);
+    
             System.out.printf("%nData Terbaru:%n");
             System.out.println("=============");
-            displayBookInfo(book1);
-
+            displayBookInfo(book);
+    
             System.out.printf("%nData buku dengan ISBN " + isbnToEdit + " Berhasil diubah.%n");
-
-             // Update the books ArrayList with the new data
-            books.set(result, book1); 
-
+    
+            // Lakukan pembaruan di database
+            int updateResult = repository.update(book);
+    
+            if (updateResult > 0) {
+                System.out.printf("%nUpdate di database berhasil%n");
+            } else {
+                System.out.printf("%nUpdate di database gagal%n");
+            }
+    
             System.out.printf("%nTekan Enter untuk melanjutkan...");
             scanner.nextLine();
         } else {
             System.out.printf("Buku dengan ISBN " + isbnToEdit + " tidak ditemukan.");
         }
     }
+    
 
     private void displayBookInfo(Book book) {
         System.out.printf("Judul         : %s%n", book.getTitle());
