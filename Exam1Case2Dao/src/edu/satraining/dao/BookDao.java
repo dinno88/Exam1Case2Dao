@@ -140,9 +140,6 @@ public class BookDao implements DataAccess{
             System.out.printf("Execute SQL Success...%n");
 
             System.out.printf("%nDaftar Data Buku%n");
-//            System.out.printf("==================================================================================================================%n");
-//            System.out.printf("%n%-3s %-40s %-15s %-20s %20s %10s%n", "No", "JUDUL", "ISBN", "PENERBIT", "HARGA", "HALAMAN");
-//            System.out.printf("==================================================================================================================%n");
 
             // encapsulate data using model
             while (resultSet.next()) {
