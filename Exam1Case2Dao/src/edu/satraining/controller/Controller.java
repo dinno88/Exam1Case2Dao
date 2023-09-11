@@ -216,7 +216,7 @@ public void readData() {
             System.out.printf("Buku dengan ISBN " + isbnToEdit + " tidak ditemukan.");
         }
     }
-    
+     
 
     private void displayBookInfo(Book book) {
         System.out.printf("Judul         : %s%n", book.getTitle());
